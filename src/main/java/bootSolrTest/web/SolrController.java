@@ -19,7 +19,8 @@ public class SolrController {
     @RequestMapping("/")
     @ResponseBody
     public String testSolr() throws IOException, SolrServerException {
-        SolrDocument document = client.getById("mycollection", "1");
+    	//mycollection为core名,"1"是id
+    	SolrDocument document = client.getById("mycollection", "1");
         System.out.println(document);
         return document.toString();
     }
