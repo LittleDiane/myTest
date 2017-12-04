@@ -69,13 +69,13 @@ public class SolrController {
     }
 
     
-    @RequestMapping("/addSolr")
+    @RequestMapping("/addDocs")
     @ResponseBody
     public String addSolr(){
     	System.out.println("======================add doc ===================");
     	// 单条数据写入
     	SolrInputDocument document = new SolrInputDocument();
-    	document.addField("id","666");
+    	document.addField("id","6");
     	document.addField("number","111");
     	document.addField("name","Diane");
     	document.addField("updateTime",new Date());
@@ -120,5 +120,45 @@ public class SolrController {
             e.printStackTrace();
         }*/
         return document.toString();	
+    }
+    
+    @RequestMapping("deleteDocs")
+    @ResponseBody
+    public String deleteDocs(){
+    	try {
+			UpdateResponse rspDoc = client.deleteById("mycollection","6");
+			System.out.println(("UpdateResponse result:" + rspDoc.getStatus() + " Qtime:" + rspDoc.getQTime()));
+			UpdateResponse rspcommit = client.commit("mycollection");
+			System.out.println(
+                    "commit doc to index" + " result:" + rspcommit.getStatus() + " Qtime:" + rspcommit.getQTime());
+		} catch (SolrServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+		return "deleteDocs!";
+    }
+    
+    @RequestMapping("updateDocs")
+    @ResponseBody
+    public String updateDocs(){
+    	try {
+    		SolrInputDocument document = new SolrInputDocument();
+    		document.addField("id", "1");
+    		document.addField("name", "PENG YU CHANG");
+    		document.addField("number","111");
+    		document.addField("updateTime",new Date());
+			client.add("mycollection", document);
+			client.commit("mycollection");
+		} catch (SolrServerException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+		return "updateDocs!";
     }
 }

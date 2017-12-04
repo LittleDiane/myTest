@@ -47,10 +47,10 @@
 			<version>1.2.14</version>
 		</dependency>
 		
-		<dependency>
+		<!-- <dependency>
    		 	<groupId>org.apache.solr</groupId>
     		<artifactId>solr-solrj</artifactId>
-		</dependency>
+		</dependency> -->
     </dependencies>
 
 </project>
